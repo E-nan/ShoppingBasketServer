@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.assignment.shoppingbasketserver.dao.ItemDao">
+
+    <insert id="insertItem" parameterType="com.assignment.shoppingbasketserver.dto.ItemDto">
+        insert into item(item_name, item_price, item_description)
+        values (#{item_name}, #{item_price}, #{item_description})
+    </insert>
+
+    <select id="selectItem" resultType="com.assignment.shoppingbasketserver.dto.ItemDto">
+        select *
+        from item
+        <if test='item_name != null'>
+            where 1=1
+            and item_name = #{item_name}
+        </if>
+    </select>
+    
+    <delete id="deleteItem">
+        delete from item where 1=1 and user_no = #{userNo}
+    </delete>
+</mapper>
