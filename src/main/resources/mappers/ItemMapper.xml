@@ -4,21 +4,21 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.assignment.shoppingbasketserver.dao.ItemDao">
 
-    <insert id="insertItem" parameterType="com.assignment.shoppingbasketserver.dto.ItemDto">
+    <insert id="insertItem" parameterType="ItemDto">
         insert into item(item_name, item_price, item_description)
-        values (#{item_name}, #{item_price}, #{item_description})
+        values (#{itemName}, #{itemPrice}, #{itemDescription})
     </insert>
 
-    <select id="selectItem" resultType="com.assignment.shoppingbasketserver.dto.ItemDto">
+    <select id="selectItem" resultType="ItemDto">
         select *
         from item
-        <if test='item_name != null'>
+        <if test='itemName != null'>
             where 1=1
-            and item_name = #{item_name}
+            and item_name = #{itemName}
         </if>
     </select>
     
     <delete id="deleteItem">
-        delete from item where 1=1 and user_no = #{userNo}
+        delete from item where 1=1 and item_no = #{itemNo}
     </delete>
 </mapper>

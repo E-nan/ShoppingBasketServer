@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration
+        PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-config.dtd">
+
+<configuration>
+
+    <settings>
+        <setting name="mapUnderscoreToCamelCase" value="true"/>
+    </settings>
+
+    <!-- 별칭 -->
+    <!-- 매퍼에 패키지명 전부 작성필요x-->
+    <typeAliases>
+        <typeAlias type="com.assignment.shoppingbasketserver.dto.UserDto" alias="UserDto"/>
+        <typeAlias type="com.assignment.shoppingbasketserver.dto.ItemDto" alias="ItemDto"/>
+        <typeAlias type="com.assignment.shoppingbasketserver.dto.BasketDto" alias="BasketDto"/>
+        <typeAlias type="com.assignment.shoppingbasketserver.dto.OrdersDto" alias="OrdersDto"/>
+    </typeAliases>
+</configuration>

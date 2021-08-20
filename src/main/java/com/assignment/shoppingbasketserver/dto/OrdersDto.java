@@ -9,8 +9,8 @@ import java.sql.Timestamp;
 @Getter
 public class OrdersDto {
 
-    private Long order_no;
-    private Long user_no;
-    private Long item_no;
-    private Timestamp order_date;
+    private Long orderNo;
+    private Long userNo;
+    private Long itemNo;
+    private Timestamp orderDate;
 }

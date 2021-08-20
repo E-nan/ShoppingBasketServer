@@ -2,7 +2,7 @@ package com.assignment.shoppingbasketserver.controller;
 
 import com.assignment.shoppingbasketserver.dao.UserDao;
 import com.assignment.shoppingbasketserver.dto.UserDto;
-import com.assignment.vo.UserVo;
+import com.assignment.shoppingbasketserver.vo.UserVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -15,43 +15,43 @@ public class UserController {
     private UserDao userDao;
 
     /**
-     * 유저 회원가입 기능
+     * 유저 회원가입
      * @param userVo
      */
-    @RequestMapping("/user/signUp")
-    public void signUpUser(UserVo userVo){
+    @RequestMapping("/user/insert")
+    public void insertUser(UserVo userVo){
 
         UserDto userDto = UserDto.builder()
-                .user_id(userVo.getUser_id())
-                .user_pw(userVo.getUser_pw())
-                .user_name(userVo.getUser_name())
-                .user_address(userVo.getUser_address())
+                .userId(userVo.getUserId())
+                .userPw(userVo.getUserPw())
+                .userName(userVo.getUserName())
+                .userAddress(userVo.getUserAddress())
                 .build();
 
         userDao.insertUser(userDto);
     }
 
     /**
-     * 유저 검색 기능(파라미터 값이 없으면 전체 검색)
-     * @param user_id
+     * 유저 검색(파라미터 값이 없으면 전체 검색)
+     * @param userId
      * @return
      */
     @RequestMapping("/user/select")
-    public List<UserDto> selectUser(@RequestParam(required = false) String user_id){
+    public List<UserDto> selectUser(@RequestParam(required = false) String userId){
 
-        List<UserDto> userDtoList = userDao.selectUser(user_id);
+        List<UserDto> userDtoList = userDao.selectUser(userId);
 
         return userDtoList;
     }
 
     /**
-     * 유저 회원탈퇴 기능
-     * @param user_no
+     * 유저 회원탈퇴
+     * @param userNo
      */
-    @RequestMapping("/user/signOut")
-    public void signOutUser(@RequestParam Long user_no){
+    @RequestMapping("/user/delete")
+    public void deleteUser(@RequestParam Long userNo){
 
-        userDao.deleteUser(user_no);
+        userDao.deleteUser(userNo);
     }
 
 }

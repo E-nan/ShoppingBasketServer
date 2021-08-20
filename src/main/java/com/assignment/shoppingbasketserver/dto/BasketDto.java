@@ -7,6 +7,6 @@ import lombok.Getter;
 @Getter
 public class BasketDto {
 
-    private Long user_no;
-    private Long item_no;
+    private Long userNo;
+    private Long itemNo;
 }
