@@ -6,6 +6,7 @@ import lombok.Getter;
 
 @AllArgsConstructor
 @Getter
+@Builder
 public class UserDto {
 
     private Long user_no;

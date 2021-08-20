@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.assignment.shoppingbasketserver.dao.UserDao">
+
+    <select id="insertUser"
+            parameterType="com.assignment.shoppingbasketserver.dto.UserDto"
+            resultType="com.assignment.shoppingbasketserver.dto.UserDto">
+        insert into user(user_id, user_pw, user_name, user_address)
+        values (#{user_id}, #{user_pw}, #{user_name}, #{user_address})
+    </select>
+    
+    <delete id="deleteUser">
+        delete from user where 1=1 and user_no = #{userNo}
+    </delete>
+</mapper>
