@@ -14,7 +14,7 @@
         from item
         <if test='itemName != null'>
             where 1=1
-            and item_name = #{itemName}
+            and item_name like concat ('%', #{itemName}, '%')
         </if>
     </select>
     
