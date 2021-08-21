@@ -15,14 +15,17 @@ CREATE SCHEMA IF NOT EXISTS `shopping_basket` DEFAULT CHARACTER SET utf8 ;
 USE `shopping_basket` ;
 
 -- -----------------------------------------------------
--- Table `shopping_basket`.`basket`
+-- Table `shopping_basket`.`user`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `basket`;
-CREATE TABLE `basket` (
-  `basket_no` INT NOT NULL AUTO_INCREMENT,
-  `user_no` INT NOT NULL,
-  `item_no` INT NOT NULL,
-  PRIMARY KEY (`basket_no`))
+DROP TABLE IF EXISTS `user`;
+CREATE TABLE `user` (
+  `user_no` INT NOT NULL AUTO_INCREMENT,
+  `user_id` VARCHAR(100) NOT NULL,
+  `user_pw` VARCHAR(100) NOT NULL,
+  `user_name` VARCHAR(100) NOT NULL,
+  `user_address` VARCHAR(200) NOT NULL,
+  PRIMARY KEY (`user_no`)
+  )
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8mb3;
 
@@ -36,7 +39,24 @@ CREATE TABLE `item` (
   `item_name` VARCHAR(50) NOT NULL,
   `item_price` DECIMAL(10,0) NOT NULL,
   `item_description` VARCHAR(500) NOT NULL,
-  PRIMARY KEY (`item_no`))
+  PRIMARY KEY (`item_no`)
+  )
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8mb3;
+
+
+-- -----------------------------------------------------
+-- Table `shopping_basket`.`basket`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `basket`;
+CREATE TABLE `basket` (
+  `basket_no` INT NOT NULL AUTO_INCREMENT,
+  `user_no` INT NOT NULL,
+  `item_no` INT NOT NULL,
+  PRIMARY KEY (`basket_no`),
+  CONSTRAINT fk_basket_user_no FOREIGN KEY(user_no) REFERENCES user(user_no),
+  CONSTRAINT fk_bakset_item_no FOREIGN KEY(item_no) REFERENCES item(item_no)
+  )
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8mb3;
 
@@ -46,26 +66,14 @@ DEFAULT CHARACTER SET = utf8mb3;
 -- -----------------------------------------------------
 DROP TABLE IF EXISTS `orders`;
 CREATE TABLE `orders` (
-  `order_no` VARCHAR(45) NOT NULL,
+  `order_no` INT NOT NULL AUTO_INCREMENT,
   `user_no` INT NOT NULL,
   `item_no` INT NOT NULL,
   `order_date` DATETIME NOT NULL,
-  PRIMARY KEY (`order_no`))
-ENGINE = InnoDB
-DEFAULT CHARACTER SET = utf8mb3;
-
-
--- -----------------------------------------------------
--- Table `shopping_basket`.`user`
--- -----------------------------------------------------
-DROP TABLE IF EXISTS `user`;
-CREATE TABLE `user` (
-  `user_no` INT NOT NULL AUTO_INCREMENT,
-  `user_id` VARCHAR(100) NOT NULL,
-  `user_pw` VARCHAR(100) NOT NULL,
-  `user_name` VARCHAR(100) NOT NULL,
-  `user_address` VARCHAR(200) NOT NULL,
-  PRIMARY KEY (`user_no`))
+  PRIMARY KEY (`order_no`),
+  CONSTRAINT fk_orders_user_no FOREIGN KEY(user_no) REFERENCES user(user_no),
+  CONSTRAINT fk_orders_item_no FOREIGN KEY(item_no) REFERENCES item(item_no)
+  )
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8mb3;
 
