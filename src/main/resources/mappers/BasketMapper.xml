@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.assignment.shoppingbasketserver.dao.BasketDao">
+
+    <insert id="insertBasket" parameterType="BasketDto">
+        insert into basket(user_no, item_no)
+        values (#{userNo}, #{itemNo})
+    </insert>
+
+    <select id="selectItem" resultType="BasketDto">
+        select *
+        from item
+        <if test='itemName != null'>
+            where 1=1
+            and item_name like concat ('%', #{itemName}, '%')
+        </if>
+    </select>
+
+<!--    <delete id="BasketDto">-->
+<!--        delete from item where 1=1 and item_no = #{itemNo}-->
+<!--    </delete>-->
+</mapper>
