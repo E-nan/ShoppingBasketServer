@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
+@RequestMapping("/user")
 public class UserController {
 
     @Autowired
@@ -18,7 +19,7 @@ public class UserController {
      * 유저 회원가입
      * @param userVo
      */
-    @RequestMapping("/user/insert")
+    @RequestMapping("/insert")
     public void insertUser(UserVo userVo){
 
         UserDto userDto = UserDto.builder()
@@ -36,7 +37,7 @@ public class UserController {
      * @param userId
      * @return
      */
-    @RequestMapping("/user/select")
+    @RequestMapping("/select")
     public List<UserDto> selectUser(@RequestParam(required = false) String userId){
 
         List<UserDto> userDtoList = userDao.selectUser(userId);
@@ -48,7 +49,7 @@ public class UserController {
      * 유저 회원탈퇴
      * @param userNo
      */
-    @RequestMapping("/user/delete")
+    @RequestMapping("/delete")
     public void deleteUser(@RequestParam Long userNo){
 
         userDao.deleteUser(userNo);

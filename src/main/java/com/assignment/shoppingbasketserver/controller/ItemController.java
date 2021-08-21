@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 
 @RestController
+@RequestMapping("/item")
 public class ItemController {
 
     @Autowired
@@ -20,7 +21,7 @@ public class ItemController {
      * 상품 등록
      * @param itemVo
      */
-    @RequestMapping("/item/insert")
+    @RequestMapping("/insert")
     public void insertItem(ItemVo itemVo){
 
         ItemDto itemDto = ItemDto.builder()
@@ -36,7 +37,7 @@ public class ItemController {
      * @param itemName
      * @return
      */
-    @RequestMapping("/item/select")
+    @RequestMapping("/select")
     public List<ItemDto> selectItem(@RequestParam(required = false) String itemName){
 
         List<ItemDto> itemDtoList = itemDao.selectItem(itemName);
@@ -48,7 +49,7 @@ public class ItemController {
      * 상품 삭제
      * @param itemNo
      */
-    @RequestMapping("item/delete")
+    @RequestMapping("/delete")
     public void deleteItem(@RequestParam Long itemNo){
 
         itemDao.deleteItem(itemNo);
