@@ -20,6 +20,8 @@
     </select>
     
     <delete id="deleteUser">
-        delete from user where 1=1 and user_no = #{userNo}
+        delete from user
+        where 1=1
+        and user_no = #{userNo}
     </delete>
 </mapper>
