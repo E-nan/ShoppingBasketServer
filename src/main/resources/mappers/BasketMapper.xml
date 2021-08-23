@@ -4,15 +4,42 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.assignment.shoppingbasketserver.dao.BasketDao">
 
+    <resultMap id="BasketDto" type="BasketDto">
+        <result column="basket_no" property="basketNo"></result>
+        <result column="item_count" property="itemCount"></result>
+    </resultMap>
 
+    <resultMap id="ItemDto" type="ItemDto">
+        <result column="item_name" property="itemName"></result>
+        <result column="item_price" property="itemPrice"></result>
+        <collection property="BasketDto" resultMap="BasketDto"></collection>
+    </resultMap>
 
     <insert id="insertBasket" parameterType="BasketDto">
         insert into basket(user_no, item_no)
         values (#{userNo}, #{itemNo})
     </insert>
 
-    <select id="selectBasket" resultType="ItemDto">
+    <update id="updateBasket" parameterType="BasketDto">
+        update basket
+        set item_count = item_count + 1
+        where 1=1
+        and user_no = #{userNo}
+        and item_no = #{itemNo}
+    </update>
+
+    <select id="selectBasket" resultType="BasketDto">
         select *
+        from basket
+        where 1=1
+        and user_no = #{userNo}
+        <if test="itemNo != null">
+            and item_no = #{itemNo}
+        </if>
+    </select>
+
+    <select id="selectBasketJoinItem" resultType="BasketJoinItemDto">
+        select a.basket_no, b.item_name, b.item_price, a.item_count
         from basket a
         left join item b
         on a.item_no = b.item_no
@@ -21,31 +48,15 @@
         <if test="itemNo != null">
             and a.item_no = #{itemNo}
         </if>
+        order by a.basket_no
     </select>
-
-    <select id="selectBasket2" resultType="ItemDto">
-        select *
-        from basket a
-        left join item b
-        on a.item_no = b.item_no
-        where 1=1
-        and a.user_no = #{userNo}
-        <if test="itemNo != null">
-            and a.item_no = #{itemNo}
-        </if>
-    </select>
-
 
     <delete id="deleteBasket">
         delete from basket
         where 1=1
         and user_no = #{userNo}
-        and item_no = #{itemNo}
-<!--        <where>-->
-<!--            <foreach collection="" item="" open="" close="" separator="or">-->
-<!--                (item_no = #{itemNo})-->
-<!--            </foreach>-->
-<!--        </where>-->
-
+        <if test="itemNo != null">
+            and item_no = #{itemNo}
+        </if>
     </delete>
 </mapper>

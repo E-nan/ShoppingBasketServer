@@ -16,5 +16,6 @@
         <typeAlias type="com.assignment.shoppingbasketserver.dto.ItemDto" alias="ItemDto"/>
         <typeAlias type="com.assignment.shoppingbasketserver.dto.BasketDto" alias="BasketDto"/>
         <typeAlias type="com.assignment.shoppingbasketserver.dto.OrdersDto" alias="OrdersDto"/>
+        <typeAlias type="com.assignment.shoppingbasketserver.dto.BasketJoinItemDto" alias="BasketJoinItemDto"/>
     </typeAliases>
 </configuration>
