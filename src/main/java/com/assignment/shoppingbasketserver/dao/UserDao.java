@@ -11,6 +11,6 @@ public interface UserDao {
 
     int insertUser(UserDto userDto);
     UserDto selectUserByNo(Long userNo);
-    UserDto selectUserById(String userId);
+    List<UserDto> selectUserById(String userId);
     int deleteUser(Long userNo);
 }

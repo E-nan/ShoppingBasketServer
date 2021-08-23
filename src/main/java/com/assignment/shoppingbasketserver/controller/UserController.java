@@ -9,6 +9,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/user")
 public class UserController {
@@ -26,12 +28,12 @@ public class UserController {
 
         Message message = new Message();
 
-        UserDto userCheckDto = userDao.selectUserById(userVo.getUserId());
+        List<UserDto> userCheckDtoList = userDao.selectUserById(userVo.getUserId());
 
-        if(userCheckDto != null){
+        if(userCheckDtoList.size() != 0){
 
             message.setMessage("이미 존재하는 아이디입니다.");
-            message.setData(userCheckDto);
+            message.setData(userCheckDtoList);
 
             return new ResponseEntity<>(message, HttpStatus.BAD_REQUEST);
         }
@@ -66,11 +68,11 @@ public class UserController {
      * @return 성공, 실패 여부에 따라 메시지 및 결과 리턴
      */
     @RequestMapping("/select")
-    public UserDto selectUser(@RequestParam(required = false) String userId){
+    public List<UserDto> selectUser(@RequestParam(required = false) String userId){
 
-        UserDto userDto = userDao.selectUserById(userId);
+        List<UserDto> userDtoList = userDao.selectUserById(userId);
 
-        return userDto;
+        return userDtoList;
     }
 
     /**
