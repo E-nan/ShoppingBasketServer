@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.assignment.shoppingbasketserver.dao.OrdersDao">
+
+    <insert id="insertOrders" parameterType="OrdersDto">
+        insert into orders(user_no, item_no, item_count, order_price, order_date)
+        select a.user_no, b.item_no, b.item_count, 999, "2020-01-01 20:00:00"
+        from user a
+        join basket b
+        on a.user_no = b.user_no
+        and a.user_no = #{userNo}
+    </insert>
+
+    <select id="selectOrders" resultType="OrdersDto">
+        select *
+        from orders
+        where 1=1
+        and user_no = #{userNo}
+    </select>
+
+    <delete id="deleteOrders">
+        delete from orders
+        where 1=1
+        and user_no = #{userNo}
+    </delete>
+</mapper>
