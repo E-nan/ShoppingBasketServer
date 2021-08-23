@@ -2,9 +2,13 @@ package com.assignment.shoppingbasketserver.controller;
 
 import com.assignment.shoppingbasketserver.dao.BasketDao;
 import com.assignment.shoppingbasketserver.dao.OrdersDao;
+import com.assignment.shoppingbasketserver.dto.BasketDto;
 import com.assignment.shoppingbasketserver.dto.OrdersDto;
+import com.assignment.shoppingbasketserver.util.Message;
 import com.assignment.shoppingbasketserver.vo.BasketVo;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -23,16 +27,37 @@ public class OrdersController {
 
     // 장바구니중 원하는 물품만 주문하는 기능 추가?
     @RequestMapping("/insert")
-    public void insertOrders(@RequestParam Long userNo){
+    public ResponseEntity<Message> insertOrders(BasketVo basketVo){
 
-        int result = ordersDao.insertOrders(userNo);
+        Message message = new Message();
+        HttpStatus httpStatus = null;
 
-        System.out.println("Order Success Count ==> " + result);
+        List<BasketDto> basketDtoList = basketDao.selectBasket(basketVo);
 
-        // 삽입 성공하면 장바구니에서 제거
-        if(result != 0){
-//            basketDao.deleteBasket(new BasketVo({userNo = 1L}));
+        if(basketDtoList.size() == 0){
+            message.setMessage("주문할 장바구니 목록이 없음");
+            message.setData(basketDtoList);
+            httpStatus = HttpStatus.BAD_REQUEST;
         }
+        else{
+            int result = ordersDao.insertOrders(basketVo);
+
+            // 삽입 성공하면 장바구니에서 제거
+            if(result != 0){
+                basketDao.deleteBasket(basketVo);
+
+                message.setMessage("장바구니 주문 성공");
+                message.setData(basketDtoList);
+                httpStatus = HttpStatus.OK;
+            }
+            else{
+                message.setMessage("장바구니 주문 실패");
+                message.setData(basketDtoList);
+                httpStatus = HttpStatus.BAD_REQUEST;
+            }
+        }
+
+        return new ResponseEntity<>(message, httpStatus);
     }
 
     @RequestMapping("/select")
@@ -41,9 +66,16 @@ public class OrdersController {
         return ordersDao.selectOrders(userNo);
     }
 
-    @RequestMapping("/delete")
-    public void deleteOrders(@RequestParam Long userNo){
-
-        int result = ordersDao.deleteOrders(userNo);
-    }
+//    @RequestMapping("/delete")
+//    public ResponseEntity<Message> deleteOrders(@RequestParam Long userNo){
+//
+//        Message message = new Message();
+//        HttpStatus httpStatus = null;
+//
+//        ordersDao.selectOrders(userNo)
+//
+//        int result = ordersDao.deleteOrders(userNo);
+//
+//        return new ResponseEntity<>(message, httpStatus);
+//    }
 }

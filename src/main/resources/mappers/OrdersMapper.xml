@@ -11,6 +11,9 @@
         join basket b
         on a.user_no = b.user_no
         and a.user_no = #{userNo}
+        <if test="itemNo != null">
+            b.item_no = #{itemNo}
+        </if>
     </insert>
 
     <select id="selectOrders" resultType="OrdersDto">
