@@ -4,12 +4,26 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.assignment.shoppingbasketserver.dao.ItemDao">
 
-    <insert id="insertItem" parameterType="ItemDto">
+    <insert id="insertItem" parameterType="ItemDto" useGeneratedKeys="true" keyProperty="itemNo">
         insert into item(item_name, item_price, item_description)
         values (#{itemName}, #{itemPrice}, #{itemDescription})
     </insert>
 
-    <select id="selectItem" resultType="ItemDto">
+    <select id="selectItemByNo" resultType="ItemDto">
+        select *
+        from item
+        where 1=1
+        and itemNo = #{itemNo}
+    </select>
+
+    <select id="selectItemByName" resultType="ItemDto">
+        select *
+        from item
+        where 1=1
+        and item_name = #{itemName}
+    </select>
+
+    <select id="selectItemLikeName" resultType="ItemDto">
         select *
         from item
         <if test='itemName != null'>

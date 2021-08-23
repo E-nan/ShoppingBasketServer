@@ -9,7 +9,9 @@ import java.util.List;
 @Component
 public interface ItemDao {
 
-    void insertItem(ItemDto itemDto);
-    List<ItemDto> selectItem(String itemName);
-    void deleteItem(Long itemNo);
+    int insertItem(ItemDto itemDto);
+    ItemDto selectItemByNo(Long itemNo);
+    ItemDto selectItemByName(String itemName);
+    List<ItemDto> selectItemLikeName(String itemName);
+    int deleteItem(Long itemNo);
 }
