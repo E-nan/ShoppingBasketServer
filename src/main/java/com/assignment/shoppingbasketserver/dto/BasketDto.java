@@ -12,4 +12,5 @@ public class BasketDto {
     private Long basketNo;
     private Long userNo;
     private Long itemNo;
+    private Long itemCount;
 }

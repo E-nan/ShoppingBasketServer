@@ -53,6 +53,7 @@ CREATE TABLE `basket` (
   `basket_no` INT NOT NULL AUTO_INCREMENT,
   `user_no` INT NOT NULL,
   `item_no` INT NOT NULL,
+  `item_count` INT NOT NULL,
   PRIMARY KEY (`basket_no`),
   CONSTRAINT fk_basket_user_no FOREIGN KEY(user_no) REFERENCES user(user_no),
   CONSTRAINT fk_bakset_item_no FOREIGN KEY(item_no) REFERENCES item(item_no)
@@ -69,6 +70,8 @@ CREATE TABLE `orders` (
   `order_no` INT NOT NULL AUTO_INCREMENT,
   `user_no` INT NOT NULL,
   `item_no` INT NOT NULL,
+  `item_count` INT NOT NULL,
+  `order_price` DECIMAL(10,0) NOT NULL,
   `order_date` DATETIME NOT NULL,
   PRIMARY KEY (`order_no`),
   CONSTRAINT fk_orders_user_no FOREIGN KEY(user_no) REFERENCES user(user_no),
