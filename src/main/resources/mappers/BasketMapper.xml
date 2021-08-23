@@ -4,21 +4,48 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.assignment.shoppingbasketserver.dao.BasketDao">
 
+
+
     <insert id="insertBasket" parameterType="BasketDto">
         insert into basket(user_no, item_no)
         values (#{userNo}, #{itemNo})
     </insert>
 
-    <select id="selectItem" resultType="BasketDto">
+    <select id="selectBasket" resultType="ItemDto">
         select *
-        from item
-        <if test='itemName != null'>
-            where 1=1
-            and item_name like concat ('%', #{itemName}, '%')
+        from basket a
+        left join item b
+        on a.item_no = b.item_no
+        where 1=1
+        and a.user_no = #{userNo}
+        <if test="itemNo != null">
+            and a.item_no = #{itemNo}
         </if>
     </select>
 
-<!--    <delete id="BasketDto">-->
-<!--        delete from item where 1=1 and item_no = #{itemNo}-->
-<!--    </delete>-->
+    <select id="selectBasket2" resultType="ItemDto">
+        select *
+        from basket a
+        left join item b
+        on a.item_no = b.item_no
+        where 1=1
+        and a.user_no = #{userNo}
+        <if test="itemNo != null">
+            and a.item_no = #{itemNo}
+        </if>
+    </select>
+
+
+    <delete id="deleteBasket">
+        delete from basket
+        where 1=1
+        and user_no = #{userNo}
+        and item_no = #{itemNo}
+<!--        <where>-->
+<!--            <foreach collection="" item="" open="" close="" separator="or">-->
+<!--                (item_no = #{itemNo})-->
+<!--            </foreach>-->
+<!--        </where>-->
+
+    </delete>
 </mapper>
