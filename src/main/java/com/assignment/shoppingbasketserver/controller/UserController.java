@@ -2,11 +2,12 @@ package com.assignment.shoppingbasketserver.controller;
 
 import com.assignment.shoppingbasketserver.dao.UserDao;
 import com.assignment.shoppingbasketserver.dto.UserDto;
+import com.assignment.shoppingbasketserver.util.Message;
 import com.assignment.shoppingbasketserver.vo.UserVo;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
 
 @RestController
 @RequestMapping("/user")
@@ -18,41 +19,93 @@ public class UserController {
     /**
      * 유저 회원가입
      * @param userVo
+     * @return 성공, 실패 여부에 따라 메시지 및 결과 리턴
      */
     @RequestMapping("/insert")
-    public void insertUser(UserVo userVo){
+    public ResponseEntity<Message> insertUser(UserVo userVo){
 
-        UserDto userDto = UserDto.builder()
-                .userId(userVo.getUserId())
-                .userPw(userVo.getUserPw())
-                .userName(userVo.getUserName())
-                .userAddress(userVo.getUserAddress())
-                .build();
+        Message message = new Message();
 
-        userDao.insertUser(userDto);
+        UserDto userCheckDto = userDao.selectUserById(userVo.getUserId());
+
+        if(userCheckDto != null){
+
+            message.setMessage("이미 존재하는 아이디입니다.");
+            message.setData(userCheckDto);
+
+            return new ResponseEntity<>(message, HttpStatus.BAD_REQUEST);
+        }
+        else{
+            UserDto userDto = UserDto.builder()
+                    .userId(userVo.getUserId())
+                    .userPw(userVo.getUserPw())
+                    .userName(userVo.getUserName())
+                    .userAddress(userVo.getUserAddress())
+                    .build();
+
+            int result = userDao.insertUser(userDto);
+
+            if(result != 0){
+                message.setMessage("유저 회원가입 성공");
+                message.setData(userDto);
+
+                return new ResponseEntity<>(message, HttpStatus.OK);
+            }
+            else{
+                message.setMessage("유저 회원가입 실패");
+                message.setData(null);
+
+                return new ResponseEntity<>(message, HttpStatus.BAD_REQUEST);
+            }
+        }
     }
 
     /**
      * 유저 검색(파라미터 값이 없으면 전체 검색)
      * @param userId
-     * @return
+     * @return 성공, 실패 여부에 따라 메시지 및 결과 리턴
      */
     @RequestMapping("/select")
-    public List<UserDto> selectUser(@RequestParam(required = false) String userId){
+    public UserDto selectUser(@RequestParam(required = false) String userId){
 
-        List<UserDto> userDtoList = userDao.selectUser(userId);
+        UserDto userDto = userDao.selectUserById(userId);
 
-        return userDtoList;
+        return userDto;
     }
 
     /**
      * 유저 회원탈퇴
      * @param userNo
+     * @return 성공, 실패 여부에 따라 메시지 및 결과 리턴
      */
     @RequestMapping("/delete")
-    public void deleteUser(@RequestParam Long userNo){
+    public ResponseEntity<Message> deleteUser(@RequestParam Long userNo){
 
-        userDao.deleteUser(userNo);
+        Message message = new Message();
+
+        UserDto userCheckDto = userDao.selectUserByNo(userNo);
+
+        if(userCheckDto == null){
+            message.setMessage("존재하지 않는 유저입니다.");
+            message.setData("입력한 회원번호 : " + userNo);
+
+            return new ResponseEntity<>(message, HttpStatus.BAD_REQUEST);
+        }
+        else{
+            int result = userDao.deleteUser(userNo);
+
+            if(result != 0){
+                message.setMessage("유저 회원탈퇴 성공");
+                message.setData(userCheckDto);
+
+                return new ResponseEntity<>(message, HttpStatus.OK);
+            }
+            else{
+                message.setMessage("유저 회원탈퇴 실패");
+                message.setData(userCheckDto);
+
+                return new ResponseEntity<>(message, HttpStatus.BAD_REQUEST);
+            }
+        }
     }
-
 }

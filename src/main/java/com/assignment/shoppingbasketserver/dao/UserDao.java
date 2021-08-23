@@ -9,7 +9,8 @@ import java.util.List;
 @Component
 public interface UserDao {
 
-    void insertUser(UserDto userDto);
-    List<UserDto> selectUser(String userId);
-    void deleteUser(Long userNo);
+    int insertUser(UserDto userDto);
+    UserDto selectUserByNo(Long userNo);
+    UserDto selectUserById(String userId);
+    int deleteUser(Long userNo);
 }
