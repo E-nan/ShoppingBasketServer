@@ -5,3 +5,8 @@ insert into user(user_id, user_pw, user_name, user_address) values ("test", "123
 insert into item(item_name, item_price, item_description) values ("모니터", "50000", "모니터 입니다.")
 insert into item(item_name, item_price, item_description) values ("키보드", "20000", "키보드 입니다.")
 insert into item(item_name, item_price, item_description) values ("마우스", "10000", "마우스 입니다.")
+
+insert into basket(user_no, item_no) values (1, 1)
+insert into basket(user_no, item_no) values (1, 2)
+insert into basket(user_no, item_no) values (1, 3)
+insert into basket(user_no, item_no) values (2, 1)
