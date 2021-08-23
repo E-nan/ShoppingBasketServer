@@ -13,10 +13,8 @@
     <select id="selectUserByNo" resultType="UserDto">
         select *
         from user
-        <if test='userId != null'>
-            where 1=1
-            and user_no = #{userNo}
-        </if>
+        where 1=1
+        and user_no = #{userNo}
     </select>
 
     <select id="selectUserById" resultType="UserDto">

@@ -27,6 +27,7 @@ public class UserController {
     public ResponseEntity<Message> insertUser(UserVo userVo){
 
         Message message = new Message();
+        HttpStatus httpStatus = null;
 
         List<UserDto> userCheckDtoList = userDao.selectUserById(userVo.getUserId());
 
@@ -34,8 +35,7 @@ public class UserController {
 
             message.setMessage("이미 존재하는 아이디입니다.");
             message.setData(userCheckDtoList);
-
-            return new ResponseEntity<>(message, HttpStatus.BAD_REQUEST);
+            httpStatus = HttpStatus.BAD_REQUEST;
         }
         else{
             UserDto userDto = UserDto.builder()
@@ -50,22 +50,22 @@ public class UserController {
             if(result != 0){
                 message.setMessage("유저 회원가입 성공");
                 message.setData(userDto);
-
-                return new ResponseEntity<>(message, HttpStatus.OK);
+                httpStatus = HttpStatus.OK;
             }
             else{
                 message.setMessage("유저 회원가입 실패");
                 message.setData(null);
-
-                return new ResponseEntity<>(message, HttpStatus.BAD_REQUEST);
+                httpStatus = HttpStatus.BAD_REQUEST;
             }
         }
+
+        return new ResponseEntity<>(message, httpStatus);
     }
 
     /**
      * 유저 검색(파라미터 값이 없으면 전체 검색)
      * @param userId
-     * @return 성공, 실패 여부에 따라 메시지 및 결과 리턴
+     * @return 유저 목록 리턴
      */
     @RequestMapping("/select")
     public List<UserDto> selectUser(@RequestParam(required = false) String userId){
@@ -84,14 +84,14 @@ public class UserController {
     public ResponseEntity<Message> deleteUser(@RequestParam Long userNo){
 
         Message message = new Message();
+        HttpStatus httpStatus = null;
 
         UserDto userCheckDto = userDao.selectUserByNo(userNo);
 
         if(userCheckDto == null){
             message.setMessage("존재하지 않는 유저입니다.");
             message.setData("입력한 회원번호 : " + userNo);
-
-            return new ResponseEntity<>(message, HttpStatus.BAD_REQUEST);
+            httpStatus = HttpStatus.BAD_REQUEST;
         }
         else{
             int result = userDao.deleteUser(userNo);
@@ -99,15 +99,15 @@ public class UserController {
             if(result != 0){
                 message.setMessage("유저 회원탈퇴 성공");
                 message.setData(userCheckDto);
-
-                return new ResponseEntity<>(message, HttpStatus.OK);
+                httpStatus = HttpStatus.OK;
             }
             else{
                 message.setMessage("유저 회원탈퇴 실패");
                 message.setData(userCheckDto);
-
-                return new ResponseEntity<>(message, HttpStatus.BAD_REQUEST);
+                httpStatus = HttpStatus.BAD_REQUEST;
             }
         }
+
+        return new ResponseEntity<>(message, httpStatus);
     }
 }
