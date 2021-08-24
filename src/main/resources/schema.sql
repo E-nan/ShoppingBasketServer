@@ -67,13 +67,13 @@ DEFAULT CHARACTER SET = utf8mb3;
 -- -----------------------------------------------------
 DROP TABLE IF EXISTS `orders`;
 CREATE TABLE `orders` (
-  `order_no` INT NOT NULL AUTO_INCREMENT,
+  `order_no` VARCHAR(50) NOT NULL,
   `user_no` INT NOT NULL,
   `item_no` INT NOT NULL,
   `item_count` INT NOT NULL,
   `order_price` DECIMAL(10,0) NOT NULL,
-  `order_date` DATETIME NOT NULL,
-  PRIMARY KEY (`order_no`),
+  `order_date` TIMESTAMP DEFAULT NOW(),
+  PRIMARY KEY (`order_no`, `user_no`, `item_no`),
   CONSTRAINT fk_orders_user_no FOREIGN KEY(user_no) REFERENCES user(user_no),
   CONSTRAINT fk_orders_item_no FOREIGN KEY(item_no) REFERENCES item(item_no)
   )
