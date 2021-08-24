@@ -54,7 +54,7 @@
     - userNo 👉 Integer, 유저 번호
     - itemNo 👉 Integer, 상품 번호
 
-- 상품검색: `/basket` or `/basket/{itemId}`
+- 상품검색: `/basket`
   - Method: **GET**
   - Param: -
   - Body: BasketVo
@@ -76,7 +76,7 @@
     - userNo 👉 Integer, 유저 번호
     - itemNo 👉 Integer, 상품 번호
 
-- 주문내역: `/orders` or `/item/{itemId}`
+- 주문내역: `/orders`
   - Method: **GET**
   - Param: -
   - Body: OrdersVo
