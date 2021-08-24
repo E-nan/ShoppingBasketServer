@@ -20,6 +20,11 @@ public class BasketController {
     @Autowired
     private BasketDao basketDao;
 
+    /**
+     * 장바구니 상품 추가
+     * @param basketVo
+     * @return 성공, 실패 여부에 따라 메시지 및 결과 리턴
+     */
     @RequestMapping("/insert")
     public ResponseEntity<Message> insertBasket(BasketVo basketVo){
 
@@ -37,12 +42,12 @@ public class BasketController {
                 List<BasketDto> basketUpdateDtoList = basketDao.selectBasket(basketVo);
                 BasketDto basketUpdateDto = basketUpdateDtoList.get(0);
 
-                message.setMessage("기존 장바구니 상품 개수 증가 성공");
+                message.setMessage("기존 장바구니 상품 개수 증가하였습니다.");
                 message.setData(basketUpdateDto);
                 httpStatus = HttpStatus.OK;
             }
             else{
-                message.setMessage("기존 장바구니 상품 개수 증가 실패");
+                message.setMessage("기존 장바구니 상품 개수 증가 실패하셨습니다.");
                 message.setData(null);
                 httpStatus = HttpStatus.BAD_REQUEST;
             }
@@ -56,12 +61,12 @@ public class BasketController {
             int result = basketDao.insertBasket(basketDto);
 
             if(result != 0){
-                message.setMessage("장바구니 상품 추가 성공");
+                message.setMessage("장바구니 상품 추가 성공하셨습니다.");
                 message.setData(basketDto);
                 httpStatus = HttpStatus.OK;
             }
             else{
-                message.setMessage("장바구니 상품 추가 실패");
+                message.setMessage("장바구니 상품 추가 실패하셨습니다.");
                 message.setData(basketDto);
                 httpStatus = HttpStatus.BAD_REQUEST;
             }
@@ -70,6 +75,11 @@ public class BasketController {
         return new ResponseEntity<>(message, httpStatus);
     }
 
+    /**
+     * 장바구니 상품 검색(상품번호가 없으면 전체 검색)
+     * @param basketVo
+     * @return
+     */
     @RequestMapping("/select")
     public ResponseEntity<Message> selectBasket(BasketVo basketVo){
 
@@ -77,14 +87,14 @@ public class BasketController {
         HttpStatus httpStatus = null;
 
         if(basketVo.getUserNo() == null){
-            message.setMessage("회원번호값 오류");
+            message.setMessage("조건에 맞는 회원이 존재하지 않습니다.");
             message.setData(basketVo);
             httpStatus = HttpStatus.BAD_REQUEST;
         }
         else{
             List<BasketJoinItemDto> basketJoinItemDtoList = basketDao.selectBasketJoinItem(basketVo);
 
-            message.setMessage("장바구니 조회 성공");
+            message.setMessage("장바구니 조회 성공하셨습니다.");
             message.setData(basketJoinItemDtoList);
             httpStatus = HttpStatus.OK;
         }
@@ -92,7 +102,11 @@ public class BasketController {
         return new ResponseEntity<>(message, httpStatus);
     }
 
-    // 다중 삭제 고려 수정 예정
+    /**
+     * 장바구니 상품 삭제(상품번호가 없으면 전체삭제)
+     * @param basketvo
+     * @return 성공, 실패 여부에 따라 메시지 및 결과 리턴
+     */
     @RequestMapping("/delete")
     public ResponseEntity<Message> deleteBasket(BasketVo basketvo){
 
@@ -102,14 +116,14 @@ public class BasketController {
         List<BasketDto> basketDtoList = basketDao.selectBasket(basketvo);
 
         if(basketDtoList.size() == 0){
-            message.setMessage("삭제할 장바구니 없음");
+            message.setMessage("조건에 맞는 회원이 존재하지 않습니다.");
             message.setData(basketvo);
             httpStatus = HttpStatus.BAD_REQUEST;
         }
         else{
             basketDao.deleteBasket(basketvo);
 
-            message.setMessage("장바구니 삭제 성공");
+            message.setMessage("장바구니 삭제 성공하셨습니다.");
             message.setData(basketDtoList);
             httpStatus = HttpStatus.OK;
         }

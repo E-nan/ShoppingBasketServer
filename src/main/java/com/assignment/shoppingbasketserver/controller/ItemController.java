@@ -47,12 +47,12 @@ public class ItemController {
             int result = itemDao.insertItem(itemDto);
 
             if(result != 0){
-                message.setMessage("상품 등록 성공");
+                message.setMessage("상품 등록 성공하셨습니다.");
                 message.setData(itemDto);
                 httpStatus = HttpStatus.OK;
             }
             else{
-                message.setMessage("상품 등록 실패");
+                message.setMessage("상품 등록 실패하셨습니다.");
                 message.setData(null);
                 httpStatus = HttpStatus.BAD_REQUEST;
             }
@@ -64,14 +64,28 @@ public class ItemController {
     /**
      * 상품 검색(파라미터 값이 없으면 전체 검색)
      * @param itemName
-     * @return 상품 목록 리턴
+     * @return 성공, 실패 여부에 따라 메시지 및 결과 리턴
      */
     @RequestMapping("/select")
-    public List<ItemDto> selectItem(@RequestParam(required = false) String itemName){
+    public ResponseEntity<Message> selectItem(@RequestParam(required = false) String itemName){
+
+        Message message = new Message();
+        HttpStatus httpStatus = null;
 
         List<ItemDto> itemDtoList = itemDao.selectItemLikeName(itemName);
 
-        return itemDtoList;
+        if(itemDtoList.size() == 0){
+            message.setMessage("조건에 맞는 상품이 없습니다.");
+            message.setData("입력한 상품 이름 : " + itemName);
+            httpStatus = HttpStatus.BAD_REQUEST;
+        }
+        else{
+            message.setMessage("상품 목록 조회에 성공하셨습니다.");
+            message.setData(itemDtoList);
+            httpStatus = HttpStatus.OK;
+        }
+
+        return new ResponseEntity<>(message, httpStatus);
     }
 
     /**
