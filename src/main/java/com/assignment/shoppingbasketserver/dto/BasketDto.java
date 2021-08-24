@@ -9,8 +9,8 @@ import lombok.Getter;
 @Builder
 public class BasketDto {
 
-    private Long basketNo;
-    private Long userNo;
-    private Long itemNo;
-    private Long itemCount;
+    private int basketNo;
+    private int userNo;
+    private int itemNo;
+    private int itemCount;
 }

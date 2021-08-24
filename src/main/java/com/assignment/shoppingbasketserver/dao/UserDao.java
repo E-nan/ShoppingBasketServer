@@ -10,7 +10,7 @@ import java.util.List;
 public interface UserDao {
 
     int insertUser(UserDto userDto);
-    UserDto selectUserByNo(Long userNo);
+    UserDto selectUserByNo(int userNo);
     List<UserDto> selectUserById(String userId);
-    int deleteUser(Long userNo);
+    int deleteUser(int userNo);
 }

@@ -9,6 +9,6 @@ import java.util.List;
 @Setter
 public class BasketVo {
 
-    private Long userNo;
-    private Long itemNo;
+    private int userNo;
+    private int itemNo;
 }

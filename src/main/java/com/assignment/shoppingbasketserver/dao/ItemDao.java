@@ -10,8 +10,8 @@ import java.util.List;
 public interface ItemDao {
 
     int insertItem(ItemDto itemDto);
-    ItemDto selectItemByNo(Long itemNo);
+    ItemDto selectItemByNo(int itemNo);
     ItemDto selectItemByName(String itemName);
     List<ItemDto> selectItemLikeName(String itemName);
-    int deleteItem(Long itemNo);
+    int deleteItem(int itemNo);
 }

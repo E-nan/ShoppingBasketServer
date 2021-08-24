@@ -11,7 +11,7 @@ import org.apache.ibatis.annotations.Param;
 @Builder
 public class UserDto {
 
-    private Long userNo;
+    private int userNo;
     private String userId;
     private String userPw;
     private String userName;

@@ -33,7 +33,7 @@
         from basket
         where 1=1
         and user_no = #{userNo}
-        <if test="itemNo != null">
+        <if test="itemNo != 0">
             and item_no = #{itemNo}
         </if>
     </select>
@@ -44,9 +44,11 @@
         left join item b
         on a.item_no = b.item_no
         where 1=1
-        and a.user_no = #{userNo}
-        <if test="itemNo != null">
-            and a.item_no = #{itemNo}
+        <if test="userNo != 0 || userNo != null">
+            and a.user_no = #{userNo}
+            <if test="itemNo != 0 || itemNo != null">
+                and a.item_no = #{itemNo}
+            </if>
         </if>
         order by a.basket_no
     </select>
@@ -55,7 +57,7 @@
         delete from basket
         where 1=1
         and user_no = #{userNo}
-        <if test="itemNo != null">
+        <if test="itemNo != 0">
             and item_no = #{itemNo}
         </if>
     </delete>

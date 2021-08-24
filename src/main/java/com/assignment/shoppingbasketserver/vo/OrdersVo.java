@@ -8,5 +8,5 @@ import lombok.Setter;
 public class OrdersVo {
 
     private String orderNo;
-    private Long userNo;
+    private int userNo;
 }

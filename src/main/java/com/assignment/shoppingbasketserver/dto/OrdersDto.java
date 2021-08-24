@@ -11,9 +11,9 @@ import java.sql.Timestamp;
 public class OrdersDto {
 
     private String orderNo;
-    private Long userNo;
-    private Long itemNo;
-    private Long itemCount;
+    private int userNo;
+    private int itemNo;
+    private int itemCount;
     private BigDecimal itemPrice;
     private Timestamp orderDate;
 }

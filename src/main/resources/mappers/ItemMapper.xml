@@ -13,7 +13,7 @@
         select *
         from item
         where 1=1
-        and itemNo = #{itemNo}
+        and item_no = #{itemNo}
     </select>
 
     <select id="selectItemByName" resultType="ItemDto">
