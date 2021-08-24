@@ -10,7 +10,7 @@ import java.sql.Timestamp;
 @Getter
 public class OrdersDto {
 
-    private Long orderNo;
+    private String orderNo;
     private Long userNo;
     private Long itemNo;
     private Long itemCount;
