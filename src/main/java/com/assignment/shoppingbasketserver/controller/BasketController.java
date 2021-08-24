@@ -85,6 +85,7 @@ public class BasketController {
                     BasketDto basketDto = BasketDto.builder()
                             .userNo(basketVo.getUserNo())
                             .itemNo(basketVo.getItemNo())
+                            .itemCount(1)
                             .build();
 
                     int result = basketDao.insertBasket(basketDto);

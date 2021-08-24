@@ -16,8 +16,8 @@
     </resultMap>
 
     <insert id="insertBasket" parameterType="BasketDto">
-        insert into basket(user_no, item_no)
-        values (#{userNo}, #{itemNo})
+        insert into basket(user_no, item_no, item_count)
+        values (#{userNo}, #{itemNo}, #{itemCount})
     </insert>
 
     <update id="updateBasket" parameterType="BasketDto">
