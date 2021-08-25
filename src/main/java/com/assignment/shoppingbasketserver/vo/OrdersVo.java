@@ -7,6 +7,6 @@ import lombok.Setter;
 @Setter
 public class OrdersVo {
 
-    private String orderNo;
-    private int userNo;
+    private String orderNo; // 주문 번호
+    private int userNo;     // 회원 번호
 }

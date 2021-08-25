@@ -9,6 +9,6 @@ import java.util.List;
 @Setter
 public class BasketVo {
 
-    private int userNo;
-    private int itemNo;
+    private int userNo; // 회원 번호
+    private int itemNo; // 상품 번호
 }

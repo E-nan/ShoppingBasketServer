@@ -11,8 +11,8 @@ import java.math.BigDecimal;
 @Builder
 public class ItemDto {
 
-    private int itemNo;
-    private String itemName;
-    private BigDecimal itemPrice;
-    private String itemDescription;
+    private int itemNo;             // 상품 번호
+    private String itemName;        // 상품 이름
+    private BigDecimal itemPrice;   // 상품 가격
+    private String itemDescription; // 상품 설명
 }

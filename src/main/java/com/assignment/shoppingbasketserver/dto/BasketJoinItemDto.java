@@ -8,8 +8,8 @@ import java.math.BigDecimal;
 @Getter
 public class BasketJoinItemDto {
 
-    private int basketNo;
-    private String itemName;
-    private BigDecimal itemPrice;
-    private int itemCount;
+    private int basketNo;           // 장바구니 번호
+    private String itemName;        // 상품 이름
+    private BigDecimal itemPrice;   // 상품 가격
+    private int itemCount;          // 상품 개수
 }

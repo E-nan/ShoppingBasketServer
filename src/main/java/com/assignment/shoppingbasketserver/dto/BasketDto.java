@@ -9,8 +9,8 @@ import lombok.Getter;
 @Builder
 public class BasketDto {
 
-    private int basketNo;
-    private int userNo;
-    private int itemNo;
-    private int itemCount;
+    private int basketNo;   // 장바구니 번호
+    private int userNo;     // 유저 번호
+    private int itemNo;     // 상품 번호
+    private int itemCount;  // 상품 개수
 }
